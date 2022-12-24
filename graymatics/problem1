@@ -1,0 +1,24 @@
+def get_max_value(items_list, possible_weight, pointer):
+    if(pointer==0 or possible_weight==0):
+        return 0
+    if(items_list[pointer-1][1]>possible_weight):
+        return get_max_value(items_list, possible_weight, pointer-1)
+    else:
+        return max(items_list[pointer-1][0] + get_max_value(items_list, possible_weight-items_list[pointer-1][1], pointer-1), get_max_value(items_list, possible_weight, pointer-1))
+        
+def main():
+    no_of_items = int(input())
+    items_list = []
+    for i in range(no_of_items):
+        weight, value = map(int,input().split())
+        items_list.append((value, weight))
+    items_list = sorted(items_list)
+    max_weight = int(input())
+    possible_weight = max_weight
+    pointer = len(items_list)
+    result = get_max_value(items_list, possible_weight, pointer)
+    print(result)
+    
+no_of_test_cases = int(input())
+for i in range(no_of_test_cases):
+    main()
